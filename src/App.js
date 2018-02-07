@@ -33,12 +33,21 @@ class App extends Component {
         this.setState({ todos: todos });
     }
 
+    deleteTodo(index) {
+        // filter the todo array for the elements that don't match the index
+        const todos = this.state.todos.filter(function(element, currentIndex) {
+            // if the clicked index matches the index in the loop
+            return !(currentIndex === index);
+        });
+        this.setState({ todos: todos });
+    }
+
   render() {
     return (
       <div className="App">
         <ul>
         { this.state.todos.map( (todo, index) =>
-            <ToDo key= { index } description={ todo.description } toggleComplete={ () => this.toggleComplete(index) } />
+            <ToDo key= { index } description={ todo.description } deleteTodo={ () => this.deleteTodo(index) } toggleComplete={ () => this.toggleComplete(index) } />
         )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
